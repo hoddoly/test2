@@ -58,17 +58,17 @@ public class TestMessage {
         //可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
         // request.setOutId("yourOutId");
         //请求失败这里会抛ClientException异常
-        SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
+       /* SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         if(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
             //请求成功
             System.out.println("请求成功！");
-        }
+        }*/
     }
 
 
     @Test
     public void test() throws ClientException {
         Integer code = ValidateCodeUtils.generateValidateCode(4);
-        SMSUtils.sendShortMessage("SMS_165692413","13269210655",code.toString());
+      //  SMSUtils.sendShortMessage("SMS_165692413","13269210655",code.toString());
     }
 }

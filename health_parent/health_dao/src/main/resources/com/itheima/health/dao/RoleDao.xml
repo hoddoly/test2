@@ -15,4 +15,123 @@
     <select id="findRoleListByUserId" parameterType="int" resultMap="rolePermissionMap">
         SELECT r.* FROM t_role r,t_user_role ur WHERE r.id = ur.role_id AND ur.user_id = #{userId}
     </select>
+
+
+    <!--插入检查组-->
+    <insert id="add" parameterType="com.itheima.health.pojo.Role">
+        <!--在插入语句后，获取插入检查组的id，把id放置到检查组的对象中-->
+        <selectKey keyProperty="id" keyColumn="id" resultType="int" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+        insert into t_role(id,name,keyword,description) values(#{id},#{name},#{keyword},#{description})
+    </insert>
+
+
+    <!--插入检查组和检查项中间表-->
+    <!--<insert id="addCheckGroupAndCheckItem">-->
+    <!--insert into t_checkgroup_checkitem(checkgroup_id,checkitem_id) values(#{checkGroupId},#{checkItemId})-->
+    <!--</insert>-->
+
+    <!--插入检查组和检查项中间表（使用Map）-->
+    <insert id="addCheckGroupAndCheckItem" parameterType="map">
+        insert into t_role_permission(role_id,permission_id) values(#{roleId},#{permissionId})
+    </insert>
+
+    <!--插入角色和菜单中间表（使用Map）-->
+    <select id="addRoleAndMenu" parameterType="map">
+        insert into t_role_menu(role_id,menu_id)values(#{roleId},#{menuId})
+    </select>
+
+    <!--分页条件查询-->
+    <select id="findPage" parameterType="string" resultType="com.itheima.health.pojo.Role">
+        select * from t_role
+        <where>
+            <if test="value!=null and value.length>0">
+                <!-- code = #{value} or name like '%${value}%' or helpcode = #{value}-->
+                name like concat('%',#{value},'%') or keyword = #{value}
+            </if>
+        </where>
+    </select>
+
+    <!--id查询-->
+    <select id="findById" parameterType="int" resultType="com.itheima.health.pojo.Role">
+        select * from t_role where id = #{id}
+    </select>
+
+    <!--使用检查组的id，查询当前检查组对应检查项的集合-->
+    <select id="findCheckItemByMenuId" parameterType="int" resultType="int">
+        SELECT menu_id FROM t_role_menu WHERE role_id = #{role_id}
+    </select>
+
+    <!--使用检查组的id，查询当前检查组对应菜单的集合-->
+    <select id="findCheckItemByCheckGroupId" parameterType="int" resultType="int">
+        SELECT permission_id FROM t_role_permission WHERE role_id = #{role_id}
+    </select>
+
+    <!--更新检查组-->
+    <update id="update" parameterType="com.itheima.health.pojo.Role">
+        update t_role
+        <set>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="keyword!=null">
+                keyword=#{keyword},
+            </if>
+            <if test="description!=null">
+                description=#{description},
+            </if>
+
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--使用检查组id删除角色和权限的中间表-->
+    <delete id="deleteCheckGroupAndCheckItemByCheckGroupId" parameterType="int">
+        delete from t_role_permission where role_id = #{id}
+    </delete>
+
+    <!--使用检查组id删除角色和菜单的中间表-->
+    <delete id="deleteRoleAndMenuByRoleId" parameterType="int">
+        delete from t_role_menu where role_id = #{id}
+    </delete>
+
+    <!--查询所有-->
+    <select id="findAll" resultType="com.itheima.health.pojo.Role">
+        select * from t_role
+    </select>
+
+    <!--查询用户和角色关联-->
+    <select id="findUserByRoleId" parameterType="int" resultType="int">
+        SELECT *FROM t_user_role WHERE role_id=#{id}
+    </select>
+
+    <delete id="deleteRoleAndPermission" parameterType="int">
+        delete from t_role_permission where role_id=#{id}
+    </delete>
+
+    <delete id="deleteRoleAndMenu" parameterType="int">
+        delete from t_role_menu where role_id=#{id}
+    </delete>
+
+    <delete id="deleteRole" parameterType="int">
+        delete from t_role where id=#{id}
+    </delete>
+
+    <!--使用套餐id，查询检查组的集合-->
+   <!-- <resultMap id="checkGroupMap" type="checkgroup">
+        <id column="id" property="id"></id>
+        <result column="code" property="code"></result>
+        <result column="name" property="name"></result>
+        <result column="helpCode" property="helpCode"></result>
+        <result column="sex" property="sex"></result>
+        <result column="remark" property="remark"></result>
+        <result column="attention" property="attention"></result>
+        <collection property="checkItems" column="id"
+                    select="com.itheima.health.dao.CheckItemDao.findCheckItemListByCheckGroupId"></collection>
+    </resultMap>
+    <select id="findCheckGroupListBySetmealId" parameterType="int" resultMap="checkGroupMap">
+        &lt;!&ndash;SELECT * FROM t_checkgroup WHERE id IN (SELECT checkgroup_id FROM t_setmeal_checkgroup WHERE setmeal_id = #{id})&ndash;&gt;
+        SELECT cg.* FROM t_checkgroup cg,t_setmeal_checkgroup scg WHERE cg.id = scg.checkgroup_id AND scg.setmeal_id = #{id}
+    </select>-->
 </mapper>

@@ -14,12 +14,18 @@ package com.itheima.health.constants;
 public class MessageConstant {
     public static final String DELETE_CHECKITEM_FAIL = "删除检查项失败";
     public static final String DELETE_CHECKITEM_SUCCESS = "删除检查项成功";
+    public static final String DELETE_ROLE_FAIL = "删除角色失败";
+    public static final String DELETE_ROLE_SUCCESS = "删除角色成功";
     public static final String ADD_CHECKITEM_SUCCESS = "新增检查项成功";
     public static final String ADD_CHECKITEM_FAIL = "新增检查项失败";
     public static final String EDIT_CHECKITEM_FAIL = "编辑检查项失败";
     public static final String EDIT_CHECKITEM_SUCCESS = "编辑检查项成功";
     public static final String QUERY_CHECKITEM_SUCCESS = "查询检查项成功";
     public static final String QUERY_CHECKITEM_FAIL = "查询检查项失败";
+    public static final String QUERY_MENU_SUCCESS = "查询菜单成功";
+    public static final String QUERY_MENU_FAIL = "查询菜单失败";
+    public static final String QUERY_PERMISSON_SUCCESS = "查询权限成功";
+    public static final String QUERY_PERMISSON_FAIL = "查询权限失败";
     public static final String UPLOAD_SUCCESS = "上传成功";
     public static final String ADD_CHECKGROUP_FAIL = "新增检查组失败";
     public static final String ADD_CHECKGROUP_SUCCESS = "新增检查组成功";
@@ -33,6 +39,12 @@ public class MessageConstant {
     public static final String PIC_UPLOAD_FAIL = "图片上传失败";
     public static final String ADD_SETMEAL_FAIL = "新增套餐失败";
     public static final String ADD_SETMEAL_SUCCESS = "新增套餐成功";
+    public static final String ADD_ROLE_SUCCESS = "新增角色成功";
+    public static final String ADD_ROLE_FALL = "新增角色失败";
+    public static final String QUERY_ROLE_SUCCESS = "查询角色成功";
+    public static final String QUERY_ROLE_FAIL = "查询角色失败";
+    public static final String EDIT_ROLE_FAIL = "编辑角色失败";
+    public static final String EDIT_ROLE_SUCCESS = "编辑角色成功";
     public static final String IMPORT_ORDERSETTING_FAIL = "批量导入预约设置数据失败";
     public static final String IMPORT_ORDERSETTING_SUCCESS = "批量导入预约设置数据成功";
     public static final String GET_ORDERSETTING_SUCCESS = "获取预约设置数据成功";
@@ -75,4 +87,5 @@ public class MessageConstant {
     public static final String GET_SETMEAL_LIST_FAIL = "查询套餐列表数据失败";
 
     public static final String DELETE_CHECKITEM_COUNT_FAIL = "检查项和检查组的中间表存在数据，不能删除，需要先删除中间表的数据";
+    public static final String DELETE_ROLE_COUNT_FAIL = "角色和用户的中间表存在数据，不能删除，需要先删除中间表的数据";
 }

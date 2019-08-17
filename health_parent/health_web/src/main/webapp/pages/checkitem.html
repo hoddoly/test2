@@ -382,7 +382,7 @@
                             }
                         }).catch((error)=>{
                             // 如果没有权限访问，就会抛出异常
-                            this.showError(error)
+                            this.showError(res.data.message)
                         }).finally(()=>{
                             // 刷新页面
                             this.findPage();
